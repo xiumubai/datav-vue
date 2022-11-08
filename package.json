@@ -2,7 +2,7 @@
     "name": "vue-datav",
     "version": "1.0.0",
     "description": "",
-    "homepage": "https://ztstory.github.io/vue-datav",
+    "homepage": "https://github.com/xiumubai/datav-vue",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "dev:demo": "pnpm -F demo dev",
