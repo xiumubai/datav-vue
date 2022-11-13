@@ -21,7 +21,7 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {
     width: 1920,
-    height: 821,
+    height: 1080,
     textWidth: 612,
     textFontSize: 30,
     title: "",
