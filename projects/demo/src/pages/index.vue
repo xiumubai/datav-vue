@@ -73,7 +73,6 @@ import ArriveNumber from "@/components/ArriveNumber.vue";
 import DirectionOfPeople from "@/components/DirectionOfPeople.vue";
 import mapJson from "@/assets/330000.geo.json";
 import { mapOpts } from "@/components/IndexMap";
-
 import type {
     CountDateItem,
     CountRangeItem,
