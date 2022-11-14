@@ -7,7 +7,7 @@
     </div>
 </template>
 
-<script >
+<script>
 import ScreenTitle from "./screen-title.vue";
 import { px2vw } from "../../utils/string.util";
 export default {
@@ -72,9 +72,6 @@ export default {
         },
         // 获取缩放比例
         getScale() {
-            console.log(window.innerHeight, window.innerWidth);
-            // const w = px2vw(window.innerWidth) / px2vw(this.w) - 0.2;
-            // const h = px2vw(window.innerHeight) / px2vw(this.h) - 0.2;
             const w = window.innerWidth / this.w + 0.2;
             const h = window.innerHeight / this.h + 0.2;
             return w < h ? w : h;
