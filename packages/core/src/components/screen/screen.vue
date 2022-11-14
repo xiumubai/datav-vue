@@ -56,9 +56,7 @@ export default {
         debounce(fn, t) {
             const delay = t || 500;
             let timer;
-            // eslint-disable-next-line func-names
             return function () {
-                // eslint-disable-next-line prefer-rest-params
                 const args = arguments;
                 if (timer) {
                     clearTimeout(timer);
