@@ -1,5 +1,8 @@
 # vue-datav 大屏可视化框架模板
 
-安装pnpm isntall
+## install
 
-启动pnpm dev:demo
+`pnpm isntall`
+## start
+
+`pnpm dev:demo`
