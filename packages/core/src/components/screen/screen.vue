@@ -1,5 +1,5 @@
 <template>
-    <div class="bb-screen flex_column" :style="{ width: w, height: h }">
+    <div class="bb-screen flex_column" :style="style">
         <screen-title class="flex_none" :text="title" :width="textWidth" :font-size="textFontSize"></screen-title>
         <div class="bb-screen__container flex_1">
             <slot></slot>
@@ -7,43 +7,100 @@
     </div>
 </template>
 
-<script setup lang="ts">
-import { computed } from "vue";
+<script >
 import ScreenTitle from "./screen-title.vue";
 import { px2vw } from "../../utils/string.util";
-interface Props {
-    width?: number;
-    height?: number;
-    textWidth?: number;
-    textFontSize?: number;
-    title: string;
-}
-
-const props = withDefaults(defineProps<Props>(), {
-    width: 1920,
-    height: 1080,
-    textWidth: 612,
-    textFontSize: 30,
-    title: "",
-});
-
-const h = computed(() => {
-    return px2vw(props.height, props.width);
-});
-
-const w = computed(() => {
-    return px2vw(props.width, props.width);
-});
+export default {
+    name: 'ScreenAdapter',
+    data() {
+        return {
+            style: {
+                width: px2vw(this.w, this.w),
+                height: px2vw(this.h, this.w),
+                transform: 'scale(1) translate(-50%, -50%)', // 默认不缩放，垂直水平居中
+            },
+        };
+    },
+    components: {
+        ScreenTitle
+    },
+    props: {
+        w: { // 设计图尺寸宽
+            type: Number,
+            default: 1920,
+        },
+        h: { // 设计图尺寸高
+            type: Number,
+            default: 1080,
+        },
+        textWidth: {
+            type: Number,
+            default: 612,
+        },
+        textFontSize: {
+            type: Number,
+            default: 0,
+        },
+        title: {
+            type: String,
+            default: ''
+        },
+    },
+    mounted() {
+        this.setScale();
+        this.onresize = this.debounce(() => this.setScale(), 100);
+        window.addEventListener('resize', this.onresize);
+    },
+    methods: {
+        // 防抖
+        debounce(fn, t) {
+            const delay = t || 500;
+            let timer;
+            // eslint-disable-next-line func-names
+            return function () {
+                // eslint-disable-next-line prefer-rest-params
+                const args = arguments;
+                if (timer) {
+                    clearTimeout(timer);
+                }
+                const context = this;
+                timer = setTimeout(() => {
+                    timer = null;
+                    fn.apply(context, args);
+                }, delay);
+            };
+        },
+        // 获取缩放比例
+        getScale() {
+            console.log(window.innerHeight, window.innerWidth);
+            // const w = px2vw(window.innerWidth) / px2vw(this.w) - 0.2;
+            // const h = px2vw(window.innerHeight) / px2vw(this.h) - 0.2;
+            const w = window.innerWidth / this.w + 0.2;
+            const h = window.innerHeight / this.h + 0.2;
+            return w < h ? w : h;
+        },
+        // 设置缩放比例
+        setScale() {
+            this.style.transform = `scale(${this.getScale()}) translate(-50%, -50%)`;
+        },
+    },
+    beforeDestroy() {
+        window.removeEventListener('resize', this.onresize);
+    },
+};
 </script>
 
 <style scoped lang="less">
 .bb-screen {
-    width: v-bind(w);
-    height: v-bind(h);
     background: #012746;
     box-sizing: border-box;
     padding: 20px 22px;
+    transform-origin: 0 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
 }
+
 .bb-screen__container {
     margin-top: 12px;
 }

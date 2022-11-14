@@ -41,7 +41,7 @@
                 </g>
             </g>
         </svg>
-        <div class="title" :style="{ fontSize: fontSizeVw }">{{ text }}</div>
+        <div class="title" >{{ text }}</div>
         <div class="date_stamp">{{ dateStamp }}</div>
     </div>
 </template>
@@ -56,7 +56,7 @@ interface Props {
     fontSize?: number; //title字体大小
 }
 const propsV = withDefaults(defineProps<Props>(), {
-    text: "",
+    text: "数据监控平台",
     width: 612,
     fontSize: 30,
 });

@@ -1,5 +1,5 @@
 <template>
-    <screen :height="1080" title="数据监控平台" :textWidth="250">
+    <screen :h="1080" title="数据监控平台" :textWidth="250">
         <div class="flex_row flex_between mgt_12">
             <div class="flex_column flex_between">
                 <card :width="346" :height="309" text="柱状图1">
